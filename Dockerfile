@@ -55,8 +55,11 @@ RUN npm ci --omit=dev
 # Copy the rest of the application
 COPY . .
 
-# Expose port your Express app runs on
+#build the application
+RUN npm run build
+
+# Expose application port
 EXPOSE 4000
 
-# Run your app
-CMD ["node", "server.js"]
+# Run the compiled JavaScript
+CMD ["node", "dist/index.js"]
