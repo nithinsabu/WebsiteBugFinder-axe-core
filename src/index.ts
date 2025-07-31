@@ -151,6 +151,7 @@ app.get("/__lighthouse-session/:sessionId", (req: Request, res: Response) => {
 app.post("/analyse", async (req: Request, res: Response) => {
     let browser;
     try {
+        console.log(req.body)
         const html: string | undefined = req.body.html;
         const url: string | undefined = req.body.url;
         const lightHouseRequired: boolean | undefined = req.query.lightHouseRequired === "true";
