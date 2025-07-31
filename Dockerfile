@@ -50,7 +50,7 @@ WORKDIR /app
 
 # Copy package files and install Node dependencies
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm install
 
 # Copy the rest of the application
 COPY . .
