@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build and Push React Docker Image
+      - name: Build and Push Node Docker Image
         run: |
           docker build -t ghcr.io/${{ github.actor }}/${REPO_NAME}:latest .
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
