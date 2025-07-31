@@ -1,6 +1,6 @@
 FROM node:22-slim
 
-# Install required Chromium dependencies
+# Install system dependencies for Chromium + wget/gnupg
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     fonts-liberation \
@@ -41,9 +41,12 @@ RUN apt-get update && apt-get install -y \
     libxtst6 \
     wget \
     xdg-utils \
+    chromium \
     --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
+# Let Puppeteer know where Chromium is installed
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # Create working directory
 WORKDIR /app
@@ -52,14 +55,14 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the application
+# Copy source code
 COPY . .
 
-#build the application
+# Build TypeScript (if using TS)
 RUN npm run build
 
 # Expose application port
 EXPOSE 4000
 
-# Run the compiled JavaScript
+# Start the app
 CMD ["node", "dist/index.js"]
